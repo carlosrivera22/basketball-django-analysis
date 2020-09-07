@@ -1,0 +1,29 @@
+.mtop {
+    margin-top: 10px !important;
+}
+
+.block-center {
+    text-align: center !important;
+}
+
+.ui.button {
+    width: 200px;
+    border-radius: 0px !important;
+}
+
+ul li {
+    margin: 0 0 10px 0;
+}
+
+.player{
+    padding-top: 120px !important;
+    padding-left: 17% !important;
+}
+
+.player-im{
+    padding-top: 80%;
+}
+
+.player-im2{
+    height: 110px !important;
+    width: 150px !important;

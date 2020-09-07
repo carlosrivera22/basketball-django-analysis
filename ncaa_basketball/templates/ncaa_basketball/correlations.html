@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Winning Correlations{% endblock title %}
+
+{% block content %}
+
+<div class="block-center">
+    <div class="ui sizer vertical segment">
+        <div class="ui huge header">NCAA Stats</div>
+    </div>
+    {% if graph %}
+        Correlation: {{corr}}
+        <img src="data:image/png;base64, {{ graph | safe}}">
+    {% endif %}
+
+    {% if error_message%}
+        <div class="ui negative message">
+            <i class="close icon"></i>
+            <div class="header">
+                {{ error_message }}
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<form action="" method="POST" class="ui form mtop">
+    {% csrf_token %}
+        <div class="field">
+            <label>Choose a chart type: </label>
+            <div class="ui selection dropdown">
+                <input type="hidden" name="title">
+                <i class="dropdown icon"></i>
+                <div class="default text">----</div>
+                <div class="menu">
+                    <div class="item" value="offensive efficiency vs. winning %">Offensive Efficiency vs. Winning %</div>
+                    <div class="item" value="defensive efficiency vs. winning %">Defensive Efficiency vs. Winning %</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="block-center">
+            <button class='ui primary button' type='submit'>Select</button>
+        </div>
+</form>
+
+
+
+
+{% endblock content %}

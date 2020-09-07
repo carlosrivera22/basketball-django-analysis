@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+
+{% block title %}Shot Charts{% endblock title %}
+
+{% block content %}
+<br>
+
+{% if error_message%}
+        <div class="ui negative message">
+            <i class="close icon"></i>
+            <div class="header">
+                {{ error_message }}
+            </div>
+        </div>
+{% endif %}
+
+<div class="ui sizer vertical segment">
+        <div class="ui huge header">NBA Players Shot Charts - 2018 Playoffs</div>
+</div>
+
+<form action="" method="POST" class="ui form mtop">
+    {% csrf_token %}
+
+        <div class="inline fields">
+            <label>Playoff Round:</label>
+            <div class="field">
+            <div class="ui radio checkbox">
+                <input type="radio" name="round" value='all' checked="checked">
+                <label>All</label>
+            </div>
+            </div>
+            <div class="field">
+            <div class="ui radio checkbox">
+                <input type="radio" name="round" value='first'>
+                <label>First Round</label>
+            </div>
+            </div>
+            <div class="field">
+            <div class="ui radio checkbox">
+                <input type="radio" name="round" value='second'>
+                <label>Second Round</label>
+            </div>
+            </div>
+            <div class="field">
+            <div class="ui radio checkbox">
+                <input type="radio" name="round" value='conference finals'>
+                <label>Conference Finals</label>
+            </div>
+            </div>
+            <div class="field">
+            <div class="ui radio checkbox">
+                <input type="radio" name="round" value='nba finals'>
+                <label>NBA Finals</label>
+            </div>
+            </div>
+        </div>
+
+
+        <div class="field">
+            <br>
+            <label>Choose player: </label>
+            <div class="ui selection dropdown">
+                <input type="hidden" name="player">
+                <i class="dropdown icon"></i>
+                <div class="default text">----</div>
+                <div class="menu">
+                    <div class="item" value="lebron">LeBron James</div>
+                    <div class="item" value="kd">Kevin Durant</div>
+                    <div class="item" value="klay">Klay Thompson</div>
+                    <div class="item" value="curry">Stephen Curry</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="block-center">
+            <button class='ui primary button' type='submit'>Select</button>
+        </div>
+</form>
+
+
+<div>
+
+    {% if graph and not error_message%}
+        <br>
+    <div class="ui grid" style="margin-top: -3%; margin-bottom: -7%;">
+        <div class="six wide column player">
+            {% if name == "KEVIN DURANT"%}
+                <img src="https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612751/2019/260x190/201142.png" class="player-im">
+            {% endif %}
+            {% if name == "LEBRON JAMES"%}
+                <img src="https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/2544.png" class="player-im">
+            {% endif %}
+            {% if name == "STEPHEN CURRY"%}
+                <img src="https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201939.png" class="player-im">
+            {% endif %}
+            {% if name == "KLAY THOMPSON"%}
+                <img src="https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202691.png" class="player-im">
+            {% endif %}
+            <div class="ui large header">{{name}}</div>
+        </div>
+
+        <div class="six wide column">
+            <img src="data:image/png;base64, {{ graph | safe}}">
+        </div>
+    </div>
+        
+        <div class="ui medium header">{{round_str}} {{opponent}}</div>
+        <hr>
+        <br>
+        <div>
+            <div class="ui statistic">
+                <div class="value">
+                    {{fg_pct | floatformat}}%
+                </div>
+                <div class="label">
+                    Overall Field Goal Percentage
+                </div>
+            </div>
+            
+            <div class="ui statistic">
+                <div class="value">
+                    {{pct_2 | floatformat}}%
+                </div>
+                <div class="label">
+                    Two Point Field Goal Percentage
+                </div>
+            </div>
+
+            <div class="ui statistic">
+                <div class="value">
+                    {{pct_3 | floatformat}}%
+                </div>
+                <div class="label">
+                    Three Point Field Goal Percentage
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <div>
+            <div class="ui statistic" style="padding-left: 2%;">
+                <div class="value">
+                    {{paint_pct | floatformat}}%
+                </div>
+                <div class="label">
+                    Painted Area Percentage
+                </div>
+            </div>
+    
+            <div class="ui statistic" style="padding-left: 2%;">
+                <div class="value">
+                    {{mid_pct | floatformat}}%
+                </div>
+                <div class="label">
+                    Mid-Range Field Goal Percentage
+                </div>
+            </div>
+
+            <div class="ui statistic">
+                <div class="value">
+                    {{corner3_pct| floatformat}}%
+                </div>
+                <div class="label">
+                    Corner Three Field Goal Percentage
+                </div>
+            </div>
+        </div>
+    
+        <hr>
+    {% endif %}
+
+
+</div>
+
+{% endblock content %}

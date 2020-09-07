@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block title %}Shot Graphs{% endblock title %}
+
+{% block content %}
+<br>
+
+{% if error_message%}
+        <div class="ui negative message">
+            <i class="close icon"></i>
+            <div class="header">
+                {{ error_message }}
+            </div>
+        </div>
+{% endif %}
+
+<div class="ui sizer vertical segment">
+        <div class="ui huge header">NBA Players Shot Graphs - 2018 Playoffs</div>
+</div>
+
+<form action="" method="POST" class="ui form mtop">
+    {% csrf_token %}
+        <div class="field">
+            <br>
+            <label>Choose player: </label>
+            <div class="ui selection dropdown">
+                <input type="hidden" name="player">
+                <i class="dropdown icon"></i>
+                <div class="default text">----</div>
+                <div class="menu">
+                    <div class="item" value="lebron">LeBron James</div>
+                    <div class="item" value="kd">Kevin Durant</div>
+                    <div class="item" value="klay">Klay Thompson</div>
+                    <div class="item" value="curry">Stephen Curry</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="block-center">
+            <button class='ui primary button' type='submit'>Select</button>
+        </div>
+</form>
+
+{% if graph %}
+    {% if name == "lebron james"%}
+        <br>
+        <div class='block-center'>
+        <img src="https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/2544.png" class="player-im2">
+        </div>
+        <h3 class='block-center' style="margin-top: -0.25%;">LeBron James</h3>
+    {% endif %}
+
+    {% if name == "stephen curry"%}
+        <br>
+        <div class='block-center'>
+         <img src="https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201939.png" class="player-im2">
+        </div>
+        <h3 class='block-center' style="margin-top: -0.25%;">Stephen Curry</h3>
+    {% endif %}
+
+    {% if name == "klay thompson"%}
+    <br>
+        <div class='block-center'>
+        <img src="https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202691.png" class="player-im2">
+        </div>
+    {% endif %}
+
+    {% if name == "kevin durant"%}
+    <br>
+        <div class='block-center'>
+        <img src="https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612751/2019/260x190/201142.png" class="player-im2">
+        </div>
+    {% endif %}
+
+
+{% endif %}
+
+{% if graph and not error_message%}
+    <br>
+
+
+    <div class="ui statistics block-center" style="padding-left: 25%;">
+    <div class="statistic">
+        <div class="value">
+            {{pct1 | floatformat}}%
+        </div>
+        <div class="label">
+            on {{shot1}}S
+        </div>
+    </div>
+    <div class="statistic">
+        <div class="value">
+            {{pct2 | floatformat}}%
+        </div>
+        <div class="label">
+            on {{shot2}}S
+        </div>
+    </div>
+    <div class="statistic">
+        <div class="value">
+            {{pct3 | floatformat}}%
+        </div>
+        <div class="label">
+            on {{shot3}}S
+        </div>
+    </div>
+    </div>
+
+    <br>
+    <h2 class="ui header block-center">
+        Attempted Shots Types
+        <div class="sub header">
+        Top 5 Scoring Moves
+        </div>
+
+    </h2>
+    <div class="ui twelve column doubling stackable grid container">
+        <div class="column">
+            <img src="data:image/png;base64, {{ graph | safe}}">
+        </div>
+
+    </div>
+{% endif %}
+
+    
+
+
+{% endblock content %}

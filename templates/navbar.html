@@ -1,0 +1,24 @@
+{% url 'ncaa_basketball:winning-correlation-view' as path_to_correlations %}
+{% url 'csvs:upload-view' as path_to_upload %}
+{% url 'csvs:upload-nba-view' as path_to_nba_upload %}
+{% url 'nba:shot-chart-view' as path_to_shot_chart %}
+{% url 'nba:shot-graph-view' as path_to_shot_graph %}
+
+
+<div class="ui secondary pointing menu">
+  <a href={{path_to_shot_chart}} class="{% if request.path == path_to_shot_chart%}active{% endif %} item">
+  NBA Shot Charts
+  </a>
+   <a href={{path_to_shot_graph}} class="{% if request.path == path_to_shot_graph%}active{% endif %} item">
+  NBA Shot Graphs
+  </a>
+  <a href={{path_to_correlations}} class="{% if request.path == path_to_correlations%}active{% endif %} item">
+  NCAA Charts
+  </a>
+  <a href={{path_to_upload}} class="{% if request.path == path_to_upload%}active{% endif %} item">
+  Upload NCAA Stats
+  </a>
+  <a href={{path_to_nba_upload}} class="{% if request.path == path_to_nba_upload%}active{% endif %} item">
+  Upload NBA Shots
+  </a>
+</div>
